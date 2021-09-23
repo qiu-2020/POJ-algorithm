@@ -40,7 +40,7 @@ bool isFake(char c,bool light){//light==true 表示假币轻
                 return false; 
         }
     }
-    // //轻重分不清！
+
     return true;
 }
 
