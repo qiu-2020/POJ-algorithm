@@ -2,6 +2,8 @@
 // http://bailian.openjudge.cn/practice/1013/
 //############################################
 
+// 123
+
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
