@@ -1,0 +1,395 @@
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2021.6.29)  28 SEP 2021 16:14
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/vic/Documents/paper_nodewalk1/conference-latex-template_10-17-19/Conference-LaTeX-template_10-17-19/conference_101719
+(/home/vic/Documents/paper_nodewalk1/conference-latex-template_10-17-19/Conference-LaTeX-template_10-17-19/conference_101719.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14> (./IEEEtran.cls
+Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen134
+\@IEEEtrantmpdimenB=\dimen135
+\@IEEEtrantmpdimenC=\dimen136
+\@IEEEtrantmpcountA=\count163
+\@IEEEtrantmpcountB=\count164
+\@IEEEtrantmpcountC=\count165
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Trying to load font information for TU+ptm on input line 503.
+LaTeX Font Info:    No file TUptm.fd. on input line 503.
+
+LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 503.
+
+-- Using 8.5in x 11in (letter) paper.
+-- Using DVI output.
+\@IEEEnormalsizeunitybaselineskip=\dimen137
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen138
+\CLASSINFOnormalsizeunitybaselineskip=\dimen139
+\IEEEnormaljot=\dimen140
+
+LaTeX Font Warning: Font shape `TU/ptm/bx/n' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 1090.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 1090.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/bx/it' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 1090.
+
+\IEEEquantizedlength=\dimen141
+\IEEEquantizedlengthdiff=\dimen142
+\IEEEquantizedtextheightdiff=\dimen143
+\IEEEilabelindentA=\dimen144
+\IEEEilabelindentB=\dimen145
+\IEEEilabelindent=\dimen146
+\IEEEelabelindent=\dimen147
+\IEEEdlabelindent=\dimen148
+\IEEElabelindent=\dimen149
+\IEEEiednormlabelsep=\dimen150
+\IEEEiedmathlabelsep=\dimen151
+\IEEEiedtopsep=\skip47
+\c@section=\count166
+\c@subsection=\count167
+\c@subsubsection=\count168
+\c@paragraph=\count169
+\c@IEEEsubequation=\count170
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\c@figure=\count171
+\c@table=\count172
+\@IEEEeqnnumcols=\count173
+\@IEEEeqncolcnt=\count174
+\@IEEEsubeqnnumrollback=\count175
+\@IEEEquantizeheightA=\dimen152
+\@IEEEquantizeheightB=\dimen153
+\@IEEEquantizeheightC=\dimen154
+\@IEEEquantizeprevdepth=\dimen155
+\@IEEEquantizemultiple=\count176
+\@IEEEquantizeboxA=\box45
+\@IEEEtmpitemindent=\dimen156
+\IEEEPARstartletwidth=\dimen157
+\c@IEEEbiography=\count177
+\@IEEEtranrubishbin=\box46
+)
+** ATTENTION: Overriding command lockouts (line 2).
+(/usr/share/texlive/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen158
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen159
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count178
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count179
+\leftroot@=\count180
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count181
+\DOTSCASE@=\count182
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen160
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count183
+\c@MaxMatrixCols=\count184
+\dotsspace@=\muskip16
+\c@parentequation=\count185
+\dspbrk@lvl=\count186
+\tag@help=\toks16
+\row@=\count187
+\column@=\count188
+\maxfields@=\count189
+\andhelp@=\toks17
+\eqnshift@=\dimen161
+\alignsep@=\dimen162
+\tagshift@=\dimen163
+\tagwidth@=\dimen164
+\totwidth@=\dimen165
+\lineht@=\dimen166
+\@envbody=\toks18
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks20
+)
+\c@ALC@unique=\count190
+\c@ALC@line=\count191
+\c@ALC@rem=\count192
+\c@ALC@depth=\count193
+\ALC@tlm=\skip53
+\algorithmicindent=\skip54
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 105.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen167
+\Gin@req@width=\dimen168
+) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: xetex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip55
+\subfigcapskip=\skip56
+\subfigcaptopadj=\dimen169
+\subfigbottomskip=\skip57
+\subfigcapmargin=\dimen170
+\subfiglabelskip=\skip58
+\c@subfigure=\count194
+\c@lofdepth=\count195
+\c@subtable=\count196
+\c@lotdepth=\count197
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip59
+\subfig@bottom=\skip60
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 112.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
+File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
+\g__graphics_track_int=\count198
+\l__pdf_internal_box=\box49
+\g__pdf_backend_object_int=\count199
+\g__pdf_backend_annotation_int=\count266
+) (./conference_101719.aux
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+
+LaTeX Warning: Label `fig' multiply defined.
+
+)
+\openout1 = `conference_101719.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 17.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+
+-- Lines per column: 56 (exact).
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 60.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Underfull \vbox (badness 4940) has occurred while \output is active []
+
+ [1
+
+
+]
+
+LaTeX Warning: Reference `fig2' on page 2 undefined on input line 123.
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 145--145
+ [][] 
+ []
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 153--153
+ [][] 
+ []
+
+[2]
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 287--287
+ [][] 
+ []
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 295--295
+ [][] 
+ []
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 313--313
+ [][] 
+ []
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+
+Overfull \hbox (9.26999pt too wide) in paragraph at lines 321--321
+ [][] 
+ []
+
+Missing character: There is no   in font ptmr7t!
+[3]
+Overfull \hbox (3.831pt too wide) detected at line 351
+\OML/cmm/m/it/10 t[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 ![][] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 ![][] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 ![][]
+ []
+
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+[4]
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+ [5]
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+File: fig1.png Graphic file (type bmp)
+<fig1.png>
+Missing character: There is no e in font msbm7!
+Missing character: There is no b in font msbm7!
+ [6] [7]
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+[8
+
+] (./conference_101719.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3943 strings out of 479819
+ 56170 string characters out of 5895846
+ 306973 words of memory out of 5000000
+ 21028 multiletter control sequences out of 15000+600000
+ 562921 words of font info for 109 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 30i,16n,37p,1998b,306s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on conference_101719.pdf (8 pages).

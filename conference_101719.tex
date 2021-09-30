@@ -1,0 +1,625 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{subfigure} 
+\usepackage[OT1]{fontenc} 
+
+
+%\usepackage{ctex}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{A method for traffic flow forecasting based on the node-walk algorithm\\
+%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and should not be used} \thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+% \and
+% \IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+%--------------一般最后才写---------------------
+\par
+12345
+\par
+67890
+\par
+hello world
+\end{abstract}
+
+\begin{IEEEkeywords}
+trafficflow forecasting, deeplearning, node2vec, nodewalk
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+With the fast acceleration of urbanization and the expansion in vehicle stock in recent years, traffic demand has risen dramatically, causing urban traffic congestion to worsen and increasing traffic system's pressure. One significant way of addressing such problem is the intelligent transportation system, which is being developed in several nations. Intelligent transportation systems can offer real-time traffic information to cars, assisting drivers in finding the best route from their starting point to their destination. The prediction of short-term traffic flow of an urban traffic road network is essential for traffic guidance system which is the heart of ITS (Intelligent Transportation System).
+%---------------------最后两句需要修改，逻辑好像不太对劲------------------
+\par However, precisely forecasting traffic flow is challenging. The reasons relies on the complexity of the urban road network topology and operation characteristics of traffic flow. The urban transportation network may be seen as a topological graph, with nodes representing corresponding detectors and edges representing the geographic connection of the two detectors.  
+On the one hand, adjacent graph vertices have spatial connections and impact one another, this means that the road network's complicated structure will have an impact on traffic flow modeling and forecasting. Each vertex, on the other hand, corresponds to a time series have a temporal correlation, these time series reflect the traffic conditions at these locations, and their fluctuations are unstable and non-linear.
+%--------------------介绍难点-----------------------------------------
+\par
+As the Fig.\ref{fig1} show . . .
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig1}
+\end{figure}
+%--------------------画图展示上述难点----------------------------------
+\par
+%此句要改
+With the rise in the amount and quality of traffic data in recent years, an increasing number of researchers have attempted to tackle the aforementioned difficulties. Their research approaches may be broadly split into two categories: model-driven and data-driven. The former depicts complicated changes in traffic state by creating a mathematical model of each traffic flow parameter and predicting traffic state based on this model, Non-parametric regression, Kalman filtering, and historical trends based on statistical characteristics are only a few examples. However these approaches have drawbacks: they can't handle non-stationary or nonlinear time series data, and can't represent complicated road network models. The latter, also known as a machine learning method, can represent complex temporal and geographical interactions. Traditional machine learning requires corresponding domain knowledge for cumbersome feature design, which limits its practical value. In recent years, deep learning has become widely popular among researchers. For example, % convolutional neural networks (CNN) is used for grid-like data processing; 
+graph convolutional neural networks (GNN) is used to process non-Euclidean spatial data that is not grid-like: graphs; the attention mechanism can solve the feature extraction problem of time series data in a parallel method. It's a new challenge to figure out how to use the aforementioned approaches in a integrated way to address the problem of processing spatio-temporal correlation data.
+\par
+We suggest a new model in this article: Node-Walk based Spatial-Temporal Attention Network (NWSTAN) used to forecast traffic conditions at various nodes among the road network. This model can process graph-based traffic data and extract the Spatio-temporal correlations to achieve more accurate predictions. Its characteristics can be summarized as follows:
+\par
+\begin{itemize}
+    \item To extract the spatio-temporal correlation of traffic flow data, this paper introduces a spatio-temporal correlation attention method. The method involves first introducing the well-known node-walk algorithm and then modifying it such that it can extract spatial similarity between each road network nodes. 
+    \item We also developed the time attention mechanism accordingly, computed each time point's correlation coefficient to extracted time correlations of traffic data for more accurate forecasting of the traffic flow volume.
+    \item Our deep neural network model was evaluated on various real-world datasets and compared with current benchmarks. It is clear from the results of the experiments that our model has certain advantages.
+\end{itemize}
+
+\section{Related Work}
+
+\subsection{Statistical methods}
+Traffic flow forecasting is a classic time series forecasting problem, and numerous researchers have done extensive studies on it. In mathematics, time series are values taken at a series of equally spaced time points. Time series forecasting is the process of predicting future values using historical data and statistical models. The most well-known methods include ARIMA, VAR.an autoregressive integrated moving average (ARIMA) model is a generalization of an autoregressive moving average (ARMA) model. ARMA is used to model stationary or weak stationary time series. ARIMA is an improvement over ARMA because its algorithm includes data difference operations, which helps to eliminate the non-stationarity of the data and makes data analysis simple. ARIMA is a time series model with a single variable. Many time series data in natural sciences and engineering are multivariate, with complicated connections between variables.The Vector autoregression model (VAR) was created to address this issue. VAR assumes there is a linear relationship between the components of the multivariate vector. The following approaches are extensively utilized, but their disadvantage is that they all contain some basic assumptions, and the actual data is highly intricate. These assumptions can't satisfy these assumptions. As a result, the predictions is inaccuracy.
+
+\subsection{Machine learning methods}
+Machine learning offers several benefits over traditional statistical approaches, including the ability to handle vast amounts of data automatically, requiring relatively few assumptions. SVM, KNN, and other machine learning methods can model complex data, but they need careful feature engineering. Deep neural network, also known as deep learning, is a relatively new machine learning method distinguished by automated feature extraction, which improves the shortcoming of traditional machine learning's laborious features design. Deep learning evolves from a fully connected network to a convolutional neural network for image classification and then to a recurrent neural network for time series data processing. Recurrent neural networks can extract the time series characteristics of data. Many scholars have tried to use this network to process traffic flow data and achieved good results. Gated recurrent neural network (GRU) and long short-term memory network (LSTM) are two more typical variations. The time parameter is explicitly added in the modeling of recurrent neural network, but this complicates the design of its parallel algorithm. 
+
+\subsection{Attention mechanism}
+There is also a class of techniques in neural networks that imitate cognitive attention: attention mechanisms. This approach mimics human attention mechanisms by focusing on less, more relevant data to increase prediction accuracy and reduce the amount of computation. Soft attention, hard attention, key-value attention, and multi-head attention are examples of attention mechanisms. It can be used in a variety of fields such as Natural Language Processing (NLP),  computer vision (CV). Google's transformer model for machine translation is maybe the most well-known example. Many researchers have recently attempted to introduce attention mechanisms to the target detection and other tasks in the field of computer vision, and the experimental results have improved.
+
+\subsection{Graph representation learning}
+Many scientific problems can be abstracted into graphs. Therefore, a variety of algorithms are required to process graph data intelligently. Traditional machine learning algorithms are mainly designed for image, text, and voice data, and their ability to process graph data is insufficient. Graph data is different from the image. It is not Euclidean data and cannot be directly input to neural networks such as CNN. Therefore, graph representation learning is needed to represent the graph as data in Euclidean space and then use machine learning methods to process it. There are classic kernel methods for graph representation learning, as well as machine learning methods. Graph kernel is a kernel function that computes an inner product on graphs. Graph kernels can be intuitively understood as functions measuring the similarity of pairs of graphs. Examples of kernel methods are Random walk kernel and Weisfeiler-Lehman graph kernel, etc. Machine learning methods include Deepwalk, Node2vec, etc. Node2vec can project each node of the graph into a vector in Euclidean space. This algorithm is widely used in recommendation systems, natural language processing, and social networks.
+
+\section{Preliminaries}
+\subsection{Traffic Data}
+In this article, we define the road network as an undirected graph 
+\begin{math}
+    G = (V,E,A)     
+\end{math} as shown in Fig.\ref{fig2}, where V is the set of vertexs; E is the set of the edges, indicating the undirected edges between two vertexs; \begin{math} A \in  \mathbb{R}^{N\times N} \end{math} denotes adjacent matrix of graph G. Each detectors on the network samples data at the same time interval. The sampled data is a series of vectors of length F corresponding to each time point. Each component meaning speed, flow and occupancy rate and other indicators. Each component represents the metrics we care about, such as speed, traffic, and occupancy.
+% \begin{figure}[htbp]
+%     \centerline{\includegraphics{fig1.png}}
+%     \caption{Example of a figure caption.}
+%     \label{fig2}
+% \end{figure}
+
+% \begin{figure}[htbp]
+%     \centerline{\includegraphics{fig1.png}}
+%     \caption{Example of a figure caption.}
+%     \label{fig2}
+% \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[pic1.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig1}
+        \end{minipage}%
+    }%
+    \subfigure[pic2.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig2}
+        \end{minipage}%
+    }%
+    \centering
+    \caption{ pics}
+\end{figure}
+
+
+%问题定义
+\subsection{Traffic Flow Forecasting}\label{AA}
+Suppose the f-th time series recorded on each node in the traffic network G is the traffic flow sequence, and \begin{math} f \in (1, ..., F) \end{math}.
+\begin{math} x^i_t\in \mathbb{R}   \end{math} denotes feature vector of node i at time t. \begin{math} \mathcal{X} = (X_1,X_2, ...,X_\tau)^T \in \mathbb{R}^{N\times F\times\tau}\end{math} denotes all the features of all the nodes at time t.
+\par Problem:
+%回头补全
+
+% \subsection{Equations}
+% Number equations consecutively. To make your 
+% equations more compact, you may use the solidus (~/~), the exp function, or 
+% appropriate exponents. Italicize Roman symbols for quantities and variables, 
+% but not Greek symbols. Use a long dash rather than a hyphen for a minus 
+% sign. Punctuate equations with commas or periods when they are part of a 
+% sentence, as in:
+% \begin{equation}
+% a+b=\gamma\label{eq}
+% \end{equation}
+
+% Be sure that the 
+% symbols in your equation have been defined before or immediately following 
+% the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at 
+% the beginning of a sentence: ``Equation \eqref{eq} is . . .''
+
+% \subsection{\LaTeX-Specific Advice}
+
+% Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
+% of ``hard'' references (e.g., \verb|(1)|). That will make it possible
+% to combine sections, add equations, or change the order of figures or
+% citations without having to go through the file line by line.
+
+% Please don't use the \verb|{eqnarray}| equation environment. Use
+% \verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
+% environment leaves unsightly spaces around relation symbols.
+
+% Please note that the \verb|{subequations}| environment in {\LaTeX}
+% will increment the main equation counter even when there are no
+% equation numbers displayed. If you forget that, you might write an
+% article in which the equation numbers skip from (17) to (20), causing
+% the copy editors to wonder if you've discovered a new method of
+% counting.
+
+% {\BibTeX} does not work by magic. It doesn't get the bibliographic
+% data from thin air but from .bib files. If you use {\BibTeX} to produce a
+% bibliography you must send the .bib files. 
+
+% {\LaTeX} can't read your mind. If you assign the same label to a
+% subsubsection and a table, you might find that Table I has been cross
+% referenced as Table IV-B3. 
+
+% {\LaTeX} does not have precognitive abilities. If you put a
+% \verb|\label| command before the command that updates the counter it's
+% supposed to be using, the label will pick up the last counter to be
+% cross referenced instead. In particular, a \verb|\label| command
+% should not go before the caption of a figure or a table.
+
+% Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
+% will not stop equation numbers inside \verb|{array}| (there won't be
+% any anyway) and it might stop a wanted equation number in the
+% surrounding equation.
+
+% \subsection{Some Common Mistakes}\label{SCM}
+% \begin{itemize}
+% \item The word ``data'' is plural, not singular.
+% \item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
+% \item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+% \item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
+% \item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
+% \item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+% \item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
+% \item Do not confuse ``imply'' and ``infer''.
+% \item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
+% \item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
+% \item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
+% \end{itemize}
+% An excellent style manual for science writers is \cite{b7}.
+
+% \subsection{Authors and Affiliations}
+% \textbf{The class file is designed for, but not limited to, six authors.} A 
+% minimum of one author is required for all conference articles. Author names 
+% should be listed starting from left to right and then moving down to the 
+% next line. This is the author sequence that will be used in future citations 
+% and by indexing services. Names should not be listed in columns nor group by 
+% affiliation. Please keep your affiliations as succinct as possible (for 
+% example, do not differentiate among departments of the same organization).
+
+% \subsection{Identify the Headings}
+% Headings, or heads, are organizational devices that guide the reader through 
+% your paper. There are two types: component heads and text heads.
+
+% Component heads identify the different components of your paper and are not 
+% topically subordinate to each other. Examples include Acknowledgments and 
+% References and, for these, the correct style to use is ``Heading 5''. Use 
+% ``figure caption'' for your Figure captions, and ``table head'' for your 
+% table title. Run-in heads, such as ``Abstract'', will require you to apply a 
+% style (in this case, italic) in addition to the style provided by the drop 
+% down menu to differentiate the head from the text.
+
+% Text heads organize the topics on a relational, hierarchical basis. For 
+% example, the paper title is the primary text head because all subsequent 
+% material relates and elaborates on this one topic. If there are two or more 
+% sub-topics, the next level head (uppercase Roman numerals) should be used 
+% and, conversely, if there are not at least two sub-topics, then no subheads 
+% should be introduced.
+
+% \subsection{Figures and Tables}
+% \paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
+% bottom of columns. Avoid placing them in the middle of columns. Large 
+% figures and tables may span across both columns. Figure captions should be 
+% below the figures; table heads should appear above the tables. Insert 
+% figures and tables after they are cited in the text. Use the abbreviation 
+% ``Fig.~\ref{fig}'', even at the beginning of a sentence.
+
+\section{Node-walk search strategy}
+To search and find each node on the topology map, the mainstream search strategies are depth First Search, DFS and Breadth First Search, BFS.
+
+\subsection{Breadth First Search}
+\par
+As shown in Figure 4-2 The topology map structure, define the node A in the figure is the search vertex, the depth priority search policy is a node adjacent to the A node, which is in line with the above conditions. Nodes are: $S_1$, $S_2$, $S_3$, $S_4$, $S_5$. If the next node is concentrated in the adjacent node, there is no next node ($S_1$, $S_2$, $S_3$, $S_4$ does not include the next node), then return to the previous node to perform depth priority search; if there is, it continues from the node Priority search. As shown in Figure 4-2, the depth priority search process is first searched by the next node A, and the node $S_5$ exists having the next node, which is added to the search node, $S_6$. Also has the next adjacent node $S_7$, that is, the next step $S_7$ is searched, and the above process is shown in Figure $4_3$. In summary, the depth priority search strategy can be expressed as composed of nodes from the neighborhood from the source node to the distance from the source node to the distance.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[pic1.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig1}
+        \end{minipage}%
+    }%
+    \subfigure[pic2.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig2}
+        \end{minipage}%
+    }%
+    \centering
+    \caption{ pics}
+\end{figure}
+
+\subsection{Depth First Search}
+\par
+The breadth priority search algorithm is a blind search method to systematically expand and check all node information in the figure. As shown in Figure 4-2, node A is the starting node Scenary priority Search First Search to find node A distance to 1 adjacent node ($S_1$, $S_2$, $S_3$, $S_4$, $S_5$), then search and node A other nodes of 2 are ($S_6$) until the full topology map is traveled, the search process is shown in Figure 4-4.
+
+\begin{figure}[htbp]
+    \centering
+    \subfigure[pic1.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig1}
+        \end{minipage}%
+    }%
+    \subfigure[pic2.]
+    {
+        \begin{minipage}[t]{0.25\linewidth}
+        \centering
+        \includegraphics[width=1in]{fig1.png}
+        %\caption{fig2}
+        \end{minipage}%
+    }%
+    \centering
+    \caption{ pics}
+\end{figure}
+
+\subsection{Homogeneity and structural equivalence}
+\par
+Both breadth-first search and depth-first search are extreme search techniques, but when it comes to predicting the link between nodes in a graph, they frequently alternate between the two qualities of homogeneity and structural equivalence. that is, taking into account the depth Priority search and breadth-first search. According to the homogeneity hypothesis, there is a substantial link between nodes that are well interconnected and belong to similar network clusters or communities ( node $S_1$ and node A in Figure 4-2 ). On the other hand, the structural equivalence hypothesis shows that nodes in the topological graph with identical structural roles have a strong relationship. In Figure 4-2, for example, node A and node $S_7$ are both the hubs of their respective network clusters. Importantly, unlike the homogeneity theory, structural equivalence does not place a premium on node connectedness. For example, some nodes in the network may be far distant, yet they all have the same structural features.
+
+\subsection{Node-Walk related node search algorithm}
+\par
+We designed a topological graph node search algorithm-Node-Walk based on the above two search strategies and related knowledge of homogeneity and structural equivalence. This algorithm combines depth-first and breadth-first search strategies, as well as real-world traffic data. The search bias $\alpha$  ensures that the neighboring nodes of the target node are searched, as well as encouraging the search for deeper nodes in the graph. 
+\par
+Consider each vehicle detector deployed on the road as a node on the road network graph (representing the vertices on the topological graph, representing the connecting edges between the nodes on the graph), and regard each detection as a node on the road network graph (connecting the detections). The roads are viewed as edges connecting nodes in a topological graph. To represent the spatial distance between the vehicle detector and the road network graph, use this function. The edge weight between the node and can be expressed as:
+
+\begin{eqnarray}
+w_{ij} =
+\begin{cases}
+exp	\left( -{\frac{{d_{ij}}^2}{\sigma ^2}} \right)   & i\neq j \\
+0  & others \\
+\end{cases}
+\end{eqnarray}  
+
+\par
+$\sigma ^2$ is a controlling factor that is used to control the distribution of edge weights.
+\par
+$N_i$ is the neighboring target node set of node i. We also define the Traffic Characteristics Data Score of the target node in the algorithm to better explore the actual relationship between the nodes in the Road Network Chart:
+
+\begin{equation}
+    t_{{score}_i}=\omega _f \frac{f_i - f_{min}}{f_{max} - f_{min}} + \omega_s \frac{s_i - s_{min}}{s_{max} - s_{min}} + \omega_s \frac{o_i - o_{min}}{o_{max} - o_{min}}
+\end{equation}  
+
+\par
+$\omega _f$, $\omega _s$, and $\omega_o$ are the traffic flow weighting coefficient, the vehicle speed weighting coefficient, and the lane occupancy weighting coefficient respectively. From them can calculate the edge weight matrix W, $ W\in R^{N\times N} $(N is the number of nodes on the road network graph, that is, the number of vehicle detectors).
+\par
+In the urban traffic network it is necessary to find some nodes that relate to the target node which will affect the traffic conditions of a certain area. This is why we have developed the Node-Walking algorithm to find the adjacent nodes which are closely linked to the target node. The main issue during node walking is the probability of jumping to a certain node from the next jump. So we have developed a second-order step procedure and defined $p_{vx}$ as the probability of node jumps and $\alpha$  as the next node search bias: s and q are the parameters for jump guidance.
+
+
+
+% \begin{table}[htbp]
+% \caption{Table Type Styles}
+% \begin{center}
+% \begin{tabular}{|c|c|c|c|}
+% \hline
+% \textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+% \cline{2-4} 
+% \textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+% \hline
+% copy& More table copy$^{\mathrm{a}}$& &  \\
+% \hline
+% \multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+% \end{tabular}
+% \label{tab1}
+% \end{center}
+% \end{table}
+
+
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics{fig1.png}}
+\caption{Example of a figure caption.}
+\label{fig}
+\end{figure}
+
+\par
+As shown in Figure 5, we assume that the node is the target node and that the first-order search of the edge (t,v) is performed first, at which point the search node turn to the node v. Because the Node-Walk algorithm seeks a set of neighboring nodes related to the target node, when the search node jumps to the node, the node becomes the starting node for the search for the second-order node related to it. At this point, we set the jump probability of the starting node to $p_{vx} = \alpha _{sq}(t,x_i)w_{vx}$, where:
+\begin{eqnarray}
+    \alpha _{sq}(t,x_i) =
+    \begin{cases}
+    \frac{d_{score_{x_i}}t_{score_{x_i}}w_t{x_i}}{q} & d_{t_{x_i}} = 1 \\
+    0  &  d_{t_{x_i}} = 0 \\
+    \frac{w_{2^{nd}}d_{score_{x_i}}t_{score_{x_i}}w_v{x_i}}{s}  & d_{t_{x_i}} = 2 \\
+    \end{cases}
+\end{eqnarray}  
+
+\par
+$d_{tx_i}$ is the topological distance between the node and $x_i$ (for clarity, the length of each edge in Figure 5 is unit length because this work is studying the node's second-order walk, the value of $d_{tx_i}$ can only be 0, 1, 2), $w_{tx_i}$ and $w_{vx_i}$ are the edge weights between node t, node v, and $x_i$, respectively. $d_{score_{x_i}}$ is the normalized score of node $x_i$, $t_{score_{x_i}}$ is the normalized traffic feature data score of node $x_i$, and $w_{2^{nd}}$ is the search node's second-order jump coefficient. According to equation (3), the parameter q controls whether the search node searches in the vicinity of node v, and the parameter s controls whether the node searches deeper areas in the network.
+Set the search walk length to L and the number of walks to n, and walk through all nodes in the road network topology graph to obtain the neighborhood node set of all nodes. The neighborhood node set is represented by $S_{node}$, $S_{node}\in R^{N_{node}\times L\times n}$.
+
+\section{NWSTAN framework}
+We will introduce our NWSTAN short-term traffic flow prediction model in this section. NWSTAN first searches for nodes that have a strong correlation with the target node and builds a set of related nodes before mining the traffic flow with the spatial feature extraction module. The spatial characteristics of the data are mined; the temporal characteristics of traffic flow data are mined using self-attention and time embedding; the feature gating fusion module is used to gate and integrate the mined spatial and temporal characteristics, and finally the prediction results are obtained.
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+
+\par
+The NWSTAN framework, as shown in Figure 6, first includes a neighborhood node selection module that employs the Node-Walk algorithm to determine the relevant node set of each node in the real traffic road network. The traffic feature data is then preprocessed (vehicle flow, vehicle speed, lane occupancy), divided, and sliced to produce the label data set and historical training data set. The historical training data is fused and reconstructed based on the relevant data set of each node obtained by the Node-Walk algorithm to obtain the traffic characteristic data set related to each node. The benefits of traditional two-dimensional convolution in spatial feature extraction are then discussed. The benefits of traditional two-dimensional convolution in spatial feature extraction are then used to perform preliminary spatial extraction on the reconstructed traffic feature data, i.e., a preliminary exploration of the spatial association relationship between nodes. To obtain the spatial and temporal features of the traffic feature data mined, the preliminary features are sent to the spatial feature extraction module and the temporal feature extraction module, respectively. Finally, the feature gated fusion module is used to obtain the final output result, which is based on the relationship between the time feature and the space feature of the traffic feature data.Finally, the feature gated fusion module designed according to the relationship between the time feature and the space feature of the traffic feature data is used to obtain the final output result, that is, the prediction result, and the prediction result is compared with the label data to adjust the relevant parameters of the prediction model to obtain the final Forecast model.
+\subsection{Correlation mining between nodes}
+$D_t \in \mathbb{R} ^{E \times H \times N \times F}$ denotes the feature data of all nodes in the training set for all periods (E is the number of time blocks after fragmentension, making it easier to incorporate time and position information into the time embedding information. To encode time position information, we use sine and cosine functions of varying frequencies:ation, H is the size of the historical time window, N is the total number of nodes on the road network graph, and F is the feature of the traffic feature data Number of parameters). Then, using principal component analysis, extract a feature abstraction that is most relevant to the prediction task from the feature data (in this project, the feature dimension of the abstracted data is 1). As shown in Figures 7(1) and (2), take the e-th time slice as an example, merge $D_e \in \mathbb{R} ^{H \times N \times F}$ with the neighboring node-set $S \in \mathbb{R} ^ {N \times L \times n}$ of the target node and reconstruct to obtain a new training set $\mathcal{D}_e$. $\mathcal{D}_e \in \mathbb{R} ^{H \times N \times L \times n}$, (L is the length of the node walk, n is the number of walks), and the reconstructed traffic data $D_m \in \mathbb{R} ^ {H \times N \times L \times n}$ is used as the input data of the network structure shown in Figure 7(3). The network is shown in Figure 7(3) contains three layers of two-dimensional convolutional layers and a fully connected layer, and uses the output of the fully connected layer as the feature value of each node at each moment. Finally, we get the abstract feature data $T_m \in \mathbb{R} ^{N \times H \times C_{out_1}}$ (as shown in Figure 7(4)), $C_{out_1}$ is the abstract feature dimension, $T = {T_1,T_2,... ,T_t}$ and $T \in \mathbb{R} ^ {E \times H \times N \times C_{out_1}}$ (E is the number of time blocks after fragmentation).
+Take the e-th time slice as an example, and merge with the neighboring node-set $S \in \mathbb{R} ^ {N \times L \times n}$ of the target node, as shown in Figures 7 (1) and (2).
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+
+\subsection{Spatial feature extraction module}
+This work uses an independent self-attention mechanism instead of spatial convolution to establish a complete attention model to extract the spatial characteristics of traffic flow. Similar to the two-dimensional convolution, define a node $X_{ho} = R^{c_{in}}$, (h represents the h-th time point in the historical time window, o represents the o-th node in the node sequence, and $C_{in}$ is the input feature dimension). First, in the neighborhood $ab = N_k(h,o)$, take the node $X_{ho}$ as the center, and extract the local area feature of the node in the space of size k. And define the center node Xho attention output as $y_ho=R^{d_{out}}$, at this time:
+\begin{equation}
+    y_{ho} = \sum_{a,b \in N_k(h,o)} softmax_{ab}(q_{ho}^TK_{ab})v_{ab}
+\end{equation}
+Among them, $q_{ho}=W_oX_{ho}$; $k_{ab} = W_kX_{ab}$; $v_{ab}=W_vX_{ab}$. The above process performs a linear transformation on the central node $X_{ho}$ and its neighbor nodes, and $w_q$, $W_k$, and $W_v$ are trainable linear transformation parameters. The above calculation process is shown in Figure 4.
+\par
+The spatial position information of the neighboring node of the target node $X_{ho}$ relative to the target node is not included in the above calculation process. The positional relationship of the node's neighborhood cannot be reflected if there is no embedded position information. This work uses relative position embedding to represent the relative position relationship between nodes and incorporates position information into the self-attention calculation to solve this problem. An example of relative position calculation is shown in Figure 8. (The relative distance refers to the $X_{ho}$ position calculation for the target node)
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+And by adding relative position information to the formula, the attention formula with relative position information can be obtained:
+\begin{equation}
+    y_{ho} = \sum_{a,b \in N_k(h,o)} softmax_{ab}(q_{hn}^TK_{ab} + q_{hn}^Tr_{a-h,b-n})v_{ab}
+\end{equation}
+The row offset is $a-h$, the column offset is $b-h$, the row and column offset embeddings are $r_{a-h}$ and $r_{b-n}$, respectively, and the row and column offset embeddings are connected to get the position embedding vector $r_{a-b ,b-n}$.
+\par
+Although embedding location information in independent self-attention has been successful in capturing spatial features, edge location information has proven difficult to capture using content-based self-attention mechanisms. To compensate for the increased number of calculations without significantly increasing the number of calculations We inject distance-based information into $w_v$ through a linear transformation of spatial variation to bridge the gap between the self-attention mechanism and spatial convolution. The final independent self-attention formula can be expressed as:
+\begin{equation}
+    y_{ij} = \sum_{a,b \in N_k(h,n)} softmax_{ab}(q_{hn}^Tk_{ab} + q_{hn}^Tr_{a-h,b-n})v_{ab}
+\end{equation}
+\par
+Perform the above independent self-attention calculation process on all data nodes to obtain the spatial characteristics of the data $E_s \in E \times H \times N \times C_{out_s}$.
+
+\subsection{Temporal feature extraction module}
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+\par
+The traffic flow is a type of time series data with a high degree of nonlinearity and complexity. To improve prediction accuracy, accurate and efficient extraction of time features of traffic flow is required. To extract time features better, this work employs the time feature extraction module depicted in Figure 10 to do so. We begin by embedding the features of each time block of each node with time $T_{t_{emb}} = T_tW_{t_{emb}} $(where $T_t \in \mathbb{R} ^ {E \times N \times H}$, $W_{t_{emb}}$ is a learnable linear transformation, $T_{t_{emb}}$ is the feature data after time embedding, and $ T_{t_{emb}} \in \mathbb{R} ^{E \times N \times H \times D_{emb}}$, $D_{emb}$ is the embedding Dimension), as illustrated in Figure 11.
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+\par
+We encode the time position of each time point in the time block to better express the sequence of the time series. The coding dimension is the same as the time embedding dimension, making it easier to incorporate time and position information into the time embedding information. To encode time position information, we use sine and cosine functions of varying frequencies:
+\begin{equation}
+    PE(pos, 2i) = sin(pos/10000^{2i/D_{emb}})
+\end{equation}
+
+\begin{equation}
+    PE(pos, 2i + 1) = cos(pos/10000^{(2i + 1)/D_{emb}})
+\end{equation}
+\par
+Pos is the time point's position in the time block, $d_ {emb}$ is the time embedding dimension, and i is a specific position component in $D_{emb}$, implying that each dimension of the time position encoding corresponds to a sinusoidal signal. Finally, to obtain the final time position code, connect the sine and cosine coding components:
+\begin{equation}
+    PE = PE(pos,2i)\oplus PE(pos,2i + 1)
+\end{equation}
+\par
+Incorporating location information into time code:
+\begin{equation}
+   T_t = T_{t_{emb}} + PE
+\end{equation}
+\par
+First, perform self-attention on the fused feature data $T_t$ and determine the correlation between each time point in the time window. We use zoom dot product attention to obtain different time points in temporal feature extraction, just like we do in spatial self-attention. Let $T^i_{t_{h^m}}$ represent the node's characteristic data in the m-th time window, $T^i_{t_{h^m}} \in \mathbb{R}^{H \times D_{emb}} $, and Figure 4-12 depicts the self-attention calculation process performed on $T^i_{t_{h^m}}$.
+\par
+In order to obtain the association relationship between various time points, in the time feature extraction, we introduce a multi-head attention mechanism:
+\begin{equation}
+      MultiHead(Q,K,V) = Concat(h_1,h_2,... ,h_{n_{h}})W^o
+\end{equation}
+\subsection{Spatiotemporal feature gated fusion}
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics{fig1.png}}
+    \caption{Example of a figure caption.}
+    \label{fig}
+\end{figure}
+
+\par
+To get the final short-term traffic flow prediction results, we combine the characteristics retrieved by the temporal feature extraction module with the spatial feature extraction module using the gating method illustrated in Figure 12. The time feature $Tt \in \mathbb{R} ^ {E \times H \times N \times D_{emb}}$ and the space feature $Ts \in \mathbb{R} ^ {E \times H \times N \times C_{out_{s}}}$ are feature gated and fused, and $D_{emb} = C_{out_s}$. $T_t \in \mathbb{R \times H \times N \times D_{emb}}$ and $T_s \in \mathbb{R} ^ {E \times H \times N \times C_{out_s}} $ are currently combined as follows:
+\begin{equation}
+    T_s^{\prime}= T_s + (1 - \sigma(T_sW_s))
+\end{equation}
+
+\begin{equation}
+    T_t^{\prime}= T_t + (1 - \sigma(T_tW_t))
+\end{equation}
+
+\begin{equation}
+    Z = \sigma(T_s^{\prime}W_s^{\prime} + T^{\prime}_tW^{\prime}_t + b_z)
+\end{equation}
+
+\begin{equation}
+    T_{S_t}{\prime}= ZT_S^{\prime} + (1 - z)T_t^{\prime}
+\end{equation}
+
+Among these, $\sigma$ is a nonlinear activation function; $W_s$, $W_t$ ,$W^{\prime}_s$, $W^{\prime}_t$ and $b_z$ are all learnable parameters. After spatio-temporal feature gated fusion, the output of the final model, which is the prediction result $T_{S_t} \in \mathbb{R} ^ {E \times H \times N}$, may be obtained. The prediction result $T_{S_t}$ of the feature fusion module is compared to the original labeled data set, and the loss value is computed. Finally, the loss value is optimized to modify the relevant parameters of the prediction model.
+
+\section{Experiments}
+\subsection{Datasets}
+The data collection PeMS obtained by the California Transportation Performance Measurement System is used in this paper. The total flow of each detector node, the average lane occupancy rate, and the average vehicle speed are among the major features of traffic flow data contained in this data collection. It also includes information on the car detector itself, such as the detector number, location information, and the timestamp. The following are the pertinent details of the data set:
+\par
+\textbf{PeMSD7-50} It has 39,000 traffic detectors in the Los Angeles region. During the working day, data gathered by car detectors on 50 key traffic routes in a specific spatial region was picked from May 1, 2012 to June 30, 2012. Each detector has a 5-minute sample period. Table 1 displays information about the device itself.
+\par
+
+
+\begin{table}[htbp]
+    \caption{PeMSD7 detector information}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+        detector number & latitude &  longitude \\
+    \hline    
+        715944 & 34.01368 & -118.166 \\
+        715947 & 34.01533 & -118.171 \\
+        716072 & 34.05411 & -118.203 \\
+        716076 & 34.05557 & -118.193 \\
+        716078 & 34.05529 & -118.186 \\
+        716206 & 34.02907 & -118.211 \\
+        716875 & 34.02279 & -118.173 \\
+        716891 & 34.01496 & -118.173 \\
+        716929 & 34.0072 & -118.156 \\
+        716934 & 34.01988 & -118.182 \\
+        $\cdots$ & $\cdots$ & $\cdots$ \\
+    \hline
+    \end{tabular}
+    \label{tab1}
+    \end{center}
+\end{table}
+    
+
+\par
+This work constructs a real road network topology map based on the latitude and longitude information of each node in the road network and the actual location of each node in the road network, and selects three traffic characteristics: traffic volume, average lane occupancy rate and vehicle speed, and data time interval for 5 minutes. Therefore, each node contains 288 time data points per day. The missing values in the original data are filled in by linear interpolation. In addition, Z-score normalization is performed on three different traffic attribute data respectively.
+
+
+
+\subsection{Experimental parameters}
+\par
+The relevant node set of each node is obtained using the Node-Walk method, with the search node's walk step length set to 9 and the number of searches set to 3. The total number of selected nodes is 50, and the historical time slice duration of all trials is 60 minutes, resulting in 12 observation points that are used to forecast vehicle speed for the following hour (the time interval is 5 minutes). The RMSprop mode is designed to optimize the mean square error during the training phase. The training batch size is 30 and NWSTAN and all comparison verification baselines are trained 50 times. We set the model's initial learning rate to $10^{-4}$ and the decay rate to 0.9.
+
+\subsection{Evaluation parameters}
+\par
+We use Mean Absolute Error (MAE), Mean Absolute Error Percent (MAPE) and Root Mean Square Error (RMSE) to evaluate the performance of our models. They are defined as:
+\begin{equation}
+    MAE = \frac{1}{n}{\sum_{i = 1}^{n}{\left|y_i - x_i\right|}}  
+\end{equation}
+
+\begin{equation}
+    MAPE = \frac{100}{n}{\sum_{i = 1}^{n}{\left|{\frac{y_i - x_i}{y_i}}\right|}}
+\end{equation}
+
+\begin{equation}
+    RMSE = \sqrt{\frac{\sum_{i = 1}^{n}{{\left(y_i - x_i\right)}^2}}{n}} 
+\end{equation}    
+where the $y$ is the actual value. $x$ is the forecast value.
+
+\subsection{experimental result}
+
+\section*{Acknowledgment}
+
+The preferred spelling of the word ``acknowledgment'' in America is without 
+an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
+G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
+acknowledgments in the unnumbered footnote on the first page.
+
+\section*{References}
+
+Please number citations consecutively within brackets \cite{b1}. The 
+sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+Number footnotes separately in superscripts. Place the actual footnote at 
+the bottom of the column in which it was cited. Do not put footnotes in the 
+abstract or reference list. Use letters for table footnotes.
+
+Unless there are six authors or more give all authors' names; do not use 
+``et al.''. Papers that have not been published, even if they have been 
+submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+Capitalize only the first word in a paper title, except for proper nouns and 
+element symbols.
+
+For papers published in translation journals, please give the English 
+citation first, followed by the original foreign-language citation \cite{b6}.
+
+\begin{thebibliography}{00}
+\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vsol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+% \bibitem{b8} Q. Zhaowei, L. Haitao, L. Zhihui and Z. Tao, "Short-Term Traffic Flow Forecasting Method With M-B-LSTM Hybrid Network," in IEEE Transactions on Intelligent Transportation Systems, doi: 10.1109/TITS.2020.3009725.
+\end{thebibliography}
+\vspace{12pt}
+\color{red}
+IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
+\end{document}
+
+%@ARTICLE{9152107,  author={Zhaowei, Qu and Haitao, Li and Zhihui, Li and Tao, Zhong},  journal={IEEE Transactions on Intelligent Transportation Systems},   title={Short-Term Traffic Flow Forecasting Method With M-B-LSTM Hybrid Network},   year={2020},  volume={},  number={},  pages={1-11},  doi={10.1109/TITS.2020.3009725}}
