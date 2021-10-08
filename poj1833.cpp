@@ -5,9 +5,9 @@ int array[1024];
 bool flag = false;
 int n;
 
-bool myCompare(int a,int b){
-    return a > b;
-}
+// bool myCompare(int a,int b){
+//     return a > b;
+// }
 
 void nextPermutation(void){
     for(int i = n - 1;i > 0;i--){
